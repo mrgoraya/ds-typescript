@@ -1,6 +1,6 @@
 
 import { EqualsFunction } from '../utils/utils';
-import LinkedList from './../linkedList/linkedList';
+import LinkedList from '../linkedList/generic/linkedList';
 
 class Stack<T> implements Iterable<T> {
   private list: LinkedList<T>
