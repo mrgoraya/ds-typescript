@@ -277,7 +277,7 @@ export class DoubleLinkedList {
   /**
    * Deletes all nodes - O(1)
    */
-   clear(): void {
+  clear(): void {
     this.head = this.tail = null;
     this.length = 0;
   }
@@ -285,4 +285,172 @@ export class DoubleLinkedList {
   /*****************************************************************************
                                   SWAPPING
   *****************************************************************************/
+  /**
+   * swap head and next node
+   * @returns void
+   */
+  swapHeadAndNextToIt(): void {
+    if (!this.head) throw new Error("The list is empty");
+
+    if (this.length === 1) {
+      console.log("The length of list is one, cannot swap");
+    } else {
+      let tempNode = this.head!.next;
+
+      this.head!.next = tempNode!.next;
+      tempNode!.next!.prev = this.head;
+      tempNode!.next = this.head;
+      this.head!.prev = tempNode;
+      tempNode!.prev = null;
+      this.head = tempNode;
+    }
+  }
+
+  /**
+   * swap head and other node
+   * @param val the value to swap the head with
+   * @returns void
+   */
+  swapHeadWithOtherNode(val: number): void {
+    const index = this.indexOf(val);
+    if (index === -1) throw new Error("Illegal index number");
+    if (index + 1 === this.length) {
+      console.log("cannot swap with tail");
+    } else {
+      let j = 0;
+      let swapNode = this.head;
+      while (j < index) {
+        swapNode = swapNode!.next;
+        j++;
+      }
+
+      const tempNode = this.head!.next;
+
+      this.head!.next = swapNode!.next;
+      swapNode!.next!.prev = this.head;
+
+      swapNode!.next = tempNode;
+      tempNode!.prev = swapNode;
+
+      this.head!.prev = swapNode!.prev;
+      swapNode!.prev!.next = this.head;
+      swapNode!.prev = null;
+      this.head = swapNode;
+    }
+  }
+
+  /**
+   * swap head with tail
+   * @returns void
+   */
+  swapHeadAndTail(): void {
+    if (this.isEmpty()) throw new Error("The list is empty");
+    if (this.length === 1) {
+      console.log("The list contains only head.");
+    } else {
+      const tempNode = this.tail;
+
+      this.head!.prev = this.tail!.prev;
+      this.tail!.prev!.next = this.head;
+      this.tail!.next = this.head!.next;
+      this.head!.next!.prev = this.tail;
+
+      this.tail!.prev = null;
+      this.head!.next = null;
+
+      this.head = tempNode;
+      this.tail = this.head;
+    }
+  }
+
+  /**
+   * swap center two nodes
+   * @param value1 value 1
+   * @param value2 value 2
+   * @returns void
+   */
+  swapCenterTwoNodes(value1: number, value2: number): void {
+    if (this.isEmpty()) throw new Error("The list is empty");
+    if (this.length === 1) {
+      console.log("The list contains only head.");
+    } else {
+      const index1 = this.indexOf(value1);
+      const index2 = this.indexOf(value2);
+
+      let j = 0;
+      let node1 = this.head;
+      while(j < index1) {
+        node1 = node1!.next;
+        j++;
+      }
+
+      let k = 0;
+      let node2 = this.head;
+      while(k < index2) {
+        node2 = node2!.next;
+        k++;
+      }
+
+      if (node1!.prev !== null && node2!.next !== null && node1!.next === node2) {
+        node1!.next = node2!.next;
+        node2!.next!.prev = node1;
+
+        node2!.prev = node1!.prev;
+        node1!.prev!.next = node2;
+
+        node1!.prev = node2;
+        node2!.next = node1;
+      } else {
+        throw new Error("It is only used for middle element.");
+      }
+    }
+  }
+
+  /**
+   * swap two nodes that are not next to eachother
+   * also not head and tail
+   * @param value1 value 1
+   * @param value2 value 2
+   * @returns void
+   */
+  swapTwoNodes(value1: number, value2: number): void {
+    if (this.isEmpty()) throw new Error("The list is empty");
+    if (this.length === 1) {
+      console.log("The list contains only head.");
+    } else {
+      const index1 = this.indexOf(value1);
+      const index2 = this.indexOf(value2);
+
+      let j = 0;
+      let node1 = this.head;
+      while(j < index1) {
+        node1 = node1!.next;
+        j++;
+      }
+
+      let k = 0;
+      let node2 = this.head;
+      while(k < index2) {
+        node2 = node2!.next;
+        k++;
+      }
+
+      if (node1!.prev !== null && node2!.next !== null && node1!.next !== node2) {
+        const tempNodePrev = node1!.prev;
+        const tempNodeNext = node1!.next;
+
+        node1!.next = node2!.next;
+        node2!.next!.prev = node1;
+        node1!.prev = node2!.prev;
+        node2!.prev!.next = node1;
+
+        node2!.next = tempNodeNext;
+        tempNodeNext!.prev = node2;
+        node2!.prev = tempNodePrev;
+        tempNodePrev!.next = node2;
+      } else {
+        throw new Error("It should not used for middle element.");
+      }
+    }
+  }
 }
