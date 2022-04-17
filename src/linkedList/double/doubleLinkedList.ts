@@ -148,25 +148,25 @@ export class DoubleLinkedList {
   /*****************************************************************************
                                   SEARCHING
   *****************************************************************************/
- 
+
   /**
-   * 
+   *
    * @param {number} data - data to search for
    * @return {number} the index of the first occurence of the element, and -1
    * if the element does not exist.
    */
   indexOf(data: number): number {
-    if(this.isEmpty()) return -1;
-    
+    if (this.isEmpty()) return -1;
+
     let i = 0;
     let currentNode = this.head;
-    while(!(currentNode!.data === data)) {
-      if(!currentNode!.next) return -1;
+    while (!(currentNode!.data === data)) {
+      if (!currentNode!.next) return -1;
 
       currentNode = currentNode!.next;
       i++;
     }
-    return i
+    return i;
   }
 
   /**
@@ -192,7 +192,7 @@ export class DoubleLinkedList {
   /*****************************************************************************
                                   DELETION
   *****************************************************************************/
- /**
+  /**
    * Removes head - O(1)
    * @return {number} - value of removed head
    */
@@ -200,7 +200,7 @@ export class DoubleLinkedList {
     if (!this.head) return null;
     const val = this.head.data;
 
-    if(this.head!.next) {
+    if (this.head!.next) {
       this.head.next.prev = null;
       this.head = this.head.next;
       this.length--;
@@ -219,7 +219,7 @@ export class DoubleLinkedList {
 
     const val = this.tail!.data;
 
-    if(!this.tail!.next) {
+    if (!this.tail!.next) {
       this.tail!.prev!.next = null;
       this.tail = this.tail!.prev;
       this.length--;
@@ -230,16 +230,59 @@ export class DoubleLinkedList {
   }
 
   /**
+   * Removes node at specified index- O(n)
+   * @param {number} i - index to remove
+   * @return {T} - value of removed node
+   */
+  removeAt(index: number): number | null {
+    if (index < 0 || index > this.length)
+      throw new Error("Illegal index number");
+
+    if (index === 0) {
+      return this.removeFront();
+    } else if (index === this.length - 1) {
+      return this.removeLast();
+    } else {
+      let j = 0;
+      let currentNode = this.head;
+
+      // traverse to node to be deleted
+      while (j < index) {
+        currentNode = currentNode!.next;
+        j++;
+      }
+
+      // delete node
+      currentNode!.prev!.next = currentNode!.next;
+      currentNode!.next!.prev = currentNode!.prev!;
+      this.length--;
+
+      return currentNode!.data;
+    }
+  }
+
+  /**
    * Removes first occurence of node with specified value. Returns true if
    * removal was successful, and false otherwise. - O(n)
    * @param {number} val - value to remove
    * @returns {number} - value of removed node
    */
-  // remove(val: number): number | null {
-  //   if(!this.head) return null;
+  remove(val: number): number | null {
+    const index = this.indexOf(val);
+    if (index === -1) return null;
 
-  //   if(this.head!.next) {
+    return this.removeAt(index);
+  }
 
-  //   }
-  // }
+  /**
+   * Deletes all nodes - O(1)
+   */
+   clear(): void {
+    this.head = this.tail = null;
+    this.length = 0;
+  }
+
+  /*****************************************************************************
+                                  SWAPPING
+  *****************************************************************************/
 }
