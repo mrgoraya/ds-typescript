@@ -1,4 +1,3 @@
-// https://www.youtube.com/watch?v=SycPba7pYR0&list=PLn4fTSbSpY5cL4_0MP83wq5khbmG3IKKd&index=5&ab_channel=JeffZhang
 // creating dynamic array in typescript
 const nums: number[] = [];
 
@@ -15,9 +14,9 @@ nums.push(5);
 // shift all the elements
 // O(n)
 nums.unshift(0);
-nums.unshift(-1)
+nums.unshift(-1);
 
-console.log(nums)
+console.log(nums);
 
 // delete - O(n)
 // this operation also shifts the elements
