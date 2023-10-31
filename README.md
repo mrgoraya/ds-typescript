@@ -14,12 +14,15 @@ DS-Typescript is a project that focuses on implementing data structures in TypeS
 
 The project is organized as follows:
 
+```
 ds-typescript/
 ├── src/ # Source code for data structures
 ├── test/ # Unit tests for data structures
 ├── package.json # Yarn package configuration
 ├── tsconfig.json # TypeScript configuration
 ├── README.md # Project Readme
+
+```
 
 ## Installation
 
