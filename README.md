@@ -40,7 +40,11 @@ git clone https://github.com/mrgoraya/ds-typescript.git
 cd ds-typescript
 ```
 
-3. Install project dependencies using Yarn:
+3. Install project dependencies using Yarn or npm:
+
+```
+npm install
+```
 
 ```
 yarn install
